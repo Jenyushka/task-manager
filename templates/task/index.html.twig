@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block body %}
+    <h1>Task List</h1>
+
+    <a href="{{ path('task_select_type') }}">Create new task</a>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <strong>{{ task.title }}</strong>
+                ({{ task.createdAt|date('Y-m-d H:i') }})
+                - Status: {{ task.status }}
+
+                <a href="{{ path('task_show', {id: task.id}) }}">View</a>
+
+                {% if task.status != 'completed' %}
+                    <form method="post"
+                          action="{{ path('task_complete', {id: task.id}) }}"
+                          style="display:inline">
+                        <button type="submit">Mark as completed</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% else %}
+            <li>No tasks found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

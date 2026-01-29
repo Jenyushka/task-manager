@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Select Task Type{% endblock %}
+
+{% block body %}
+    <h1>Select Task Type</h1>
+
+    <ul>
+        <li>
+            <a href="{{ path('task_new', { type: 'basic' }) }}">
+                Basic Task
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('task_new', { type: 'notes' }) }}">
+                Task with Notes
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('task_new', { type: 'priority' }) }}">
+                Task with Priority
+            </a>
+        </li>
+    </ul>
+{% endblock %}

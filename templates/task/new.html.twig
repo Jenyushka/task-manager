@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Task{% endblock %}
+
+{% block body %}
+    <h1>Create New Task</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+
+    {% if form.notes is defined %}
+        {{ form_row(form.notes) }}
+    {% endif %}
+
+    {% if form.priority is defined %}
+        {{ form_row(form.priority) }}
+    {% endif %}
+
+    <button type="submit">Create</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('task_index') }}">Back to list</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task Details{% endblock %}
+
+{% block body %}
+    <h1>{{ task.title }}</h1>
+
+    <p><strong>Description:</strong></p>
+    <p>{{ task.description }}</p>
+
+    <p>
+        <strong>Status:</strong> {{ task.status }}<br>
+        <strong>Created at:</strong> {{ task.createdAt|date('Y-m-d H:i') }}
+    </p>
+
+    {% if task.notes is not empty %}
+        <p>
+            <strong>Notes:</strong><br>
+            {{ task.notes }}
+        </p>
+    {% endif %}
+
+    {% if task.priority is not empty %}
+        <p>
+            <strong>Priority:</strong> {{ task.priority|capitalize }}
+        </p>
+    {% endif %}
+
+    <a href="{{ path('task_index') }}">Back to list</a>
+{% endblock %}
