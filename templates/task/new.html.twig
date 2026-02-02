@@ -3,24 +3,50 @@
 {% block title %}New Task{% endblock %}
 
 {% block body %}
-    <h1>Create New Task</h1>
-
+<div class="card">
+    <h2>Create New {{ task_type }}</h2>
+    
     {{ form_start(form) }}
-
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-
-    {% if form.notes is defined %}
-        {{ form_row(form.notes) }}
-    {% endif %}
-
-    {% if form.priority is defined %}
-        {{ form_row(form.priority) }}
-    {% endif %}
-
-    <button type="submit">Create</button>
-
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title) }}
+            {{ form_errors(form.title) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+        
+        {% if form.notes is defined %}
+            <div class="form-group">
+                {{ form_label(form.notes) }}
+                {{ form_widget(form.notes) }}
+                {{ form_errors(form.notes) }}
+            </div>
+        {% endif %}
+        
+        {% if form.priority is defined %}
+            <div class="form-group">
+                {{ form_label(form.priority) }}
+                {{ form_widget(form.priority) }}
+                {{ form_errors(form.priority) }}
+            </div>
+        {% endif %}
+        
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-success">Create Task</button>
+            <a href="{{ path('task_index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
     {{ form_end(form) }}
+</div>
 
-    <a href="{{ path('task_index') }}">Back to list</a>
+<style>
+    .form-error {
+        color: #e74c3c;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+</style>
 {% endblock %}

@@ -1,31 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tasks{% endblock %}
+{% block title %}Task List{% endblock %}
 
 {% block body %}
-    <h1>Task List</h1>
-
-    <a href="{{ path('task_select_type') }}">Create new task</a>
-
-    <ul>
-        {% for task in tasks %}
-            <li>
-                <strong>{{ task.title }}</strong>
-                ({{ task.createdAt|date('Y-m-d H:i') }})
-                - Status: {{ task.status }}
-
-                <a href="{{ path('task_show', {id: task.id}) }}">View</a>
-
-                {% if task.status != 'completed' %}
-                    <form method="post"
-                          action="{{ path('task_complete', {id: task.id}) }}"
-                          style="display:inline">
-                        <button type="submit">Mark as completed</button>
-                    </form>
-                {% endif %}
-            </li>
-        {% else %}
-            <li>No tasks found.</li>
-        {% endfor %}
-    </ul>
+<div class="card">
+    <h2>Task List</h2>
+    <p>All tasks sorted by creation time (newest first)</p>
+    
+    {% if tasks is empty %}
+        <p style="text-align: center; color: #999; padding: 40px 0;">
+            No tasks yet. <a href="{{ path('task_new') }}">Create your first task</a>
+        </p>
+    {% else %}
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                    <th style="padding: 12px; text-align: left;">Title</th>
+                    <th style="padding: 12px; text-align: left;">Type</th>
+                    <th style="padding: 12px; text-align: left;">Status</th>
+                    <th style="padding: 12px; text-align: left;">Created</th>
+                    <th style="padding: 12px; text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr style="border-bottom: 1px solid #dee2e6; {% if task.completed %}opacity: 0.6;{% endif %}">
+                        <td style="padding: 12px;">
+                            <a href="{{ path('task_show', {'id': task.id}) }}" style="color: #3498db; text-decoration: none;">
+                                {{ task.title }}
+                            </a>
+                        </td>
+                        <td style="padding: 12px;">
+                            <span style="background-color: #e8f4f8; padding: 4px 8px; border-radius: 3px; font-size: 12px;">
+                                {{ task.typeName }}
+                            </span>
+                        </td>
+                        <td style="padding: 12px;">
+                            {% if task.completed %}
+                                <span style="color: #27ae60; font-weight: bold;">✓ Completed</span>
+                            {% else %}
+                                <span style="color: #f39c12;">○ Open</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 12px;">
+                            {{ task.createdAt|date('Y-m-d H:i') }}
+                        </td>
+                        <td style="padding: 12px; text-align: center;">
+                            {% if not task.completed %}
+                                <form method="post" action="{{ path('task_complete', {'id': task.id}) }}" style="display: inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('complete' ~ task.id) }}">
+                                    <button type="submit" class="btn btn-success" style="padding: 5px 10px; font-size: 12px;">
+                                        Complete
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="{{ path('task_reopen', {'id': task.id}) }}" style="display: inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('reopen' ~ task.id) }}">
+                                    <button type="submit" class="btn btn-secondary" style="padding: 5px 10px; font-size: 12px;">
+                                        Reopen
+                                    </button>
+                                </form>
+                            {% endif %}
+                            
+                            <a href="{{ path('task_show', {'id': task.id}) }}" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
 {% endblock %}

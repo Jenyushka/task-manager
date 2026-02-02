@@ -6,8 +6,8 @@ A Symfony 7.2 application for managing tasks with different types and priorities
 
 - ✅ Create, list, and complete tasks
 - 📝 Two task types:
-    - **Task with Notes**: Tasks with an additional notes field
-    - **Task with Priority**: Tasks with priority levels (low, medium, high, critical)
+  - **Task with Notes**: Tasks with an additional notes field
+  - **Task with Priority**: Tasks with priority levels (low, medium, high, critical)
 - 🖥️ Web interface for task management
 - 💻 CLI command for creating tasks
 - 🧪 PHPUnit tests included
@@ -74,10 +74,10 @@ Visit: http://localhost:8000/task/
 ### Web Interface
 
 1. **View all tasks**: Navigate to `/task/`
-2. **Create a new task**:
-    - Click "New Task"
-    - Select task type (with notes or with priority)
-    - Fill in the form and submit
+2. **Create a new task**: 
+   - Click "New Task"
+   - Select task type (with notes or with priority)
+   - Fill in the form and submit
 3. **View task details**: Click on a task title
 4. **Complete a task**: Click "Complete" button on any open task
 5. **Reopen a task**: Click "Reopen" button on any completed task
@@ -234,26 +234,26 @@ php bin/console doctrine:migrations:migrate
 ### Key Design Decisions
 
 1. **Separation of Concerns**:
-    - Entities handle data structure and business logic
-    - Repositories handle data access
-    - Controllers handle HTTP requests/responses
-    - Forms handle validation and data binding
-    - Commands handle CLI interactions
+   - Entities handle data structure and business logic
+   - Repositories handle data access
+   - Controllers handle HTTP requests/responses
+   - Forms handle validation and data binding
+   - Commands handle CLI interactions
 
 2. **Validation**:
-    - Uses Symfony Validator constraints
-    - Validation rules defined in entity attributes
-    - Automatic validation in forms
+   - Uses Symfony Validator constraints
+   - Validation rules defined in entity attributes
+   - Automatic validation in forms
 
 3. **Type Safety**:
-    - PHP 8.2 type hints throughout
-    - Nullable types where appropriate
-    - Return type declarations
+   - PHP 8.2 type hints throughout
+   - Nullable types where appropriate
+   - Return type declarations
 
 4. **Extensibility**:
-    - Abstract base class allows easy addition of new task types
-    - Repository pattern for data access
-    - Form types for reusable forms
+   - Abstract base class allows easy addition of new task types
+   - Repository pattern for data access
+   - Form types for reusable forms
 
 ## Testing
 
@@ -274,12 +274,12 @@ php bin/phpunit tests/Functional
 ### Test Coverage
 
 - **Unit Tests**:
-    - `TaskWithNotesTest`: Tests entity behavior, status changes, creation
-    - `TaskWithPriorityTest`: Tests priority levels, entity behavior
-    - `TaskRepositoryTest`: Tests custom repository methods
+  - `TaskWithNotesTest`: Tests entity behavior, status changes, creation
+  - `TaskWithPriorityTest`: Tests priority levels, entity behavior
+  - `TaskRepositoryTest`: Tests custom repository methods
 
 - **Functional Tests**:
-    - `TaskControllerTest`: Tests web interface, form submission, validation
+  - `TaskControllerTest`: Tests web interface, form submission, validation
 
 ## Project Structure
 

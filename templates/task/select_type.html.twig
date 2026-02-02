@@ -3,23 +3,36 @@
 {% block title %}Select Task Type{% endblock %}
 
 {% block body %}
-    <h1>Select Task Type</h1>
-
-    <ul>
-        <li>
-            <a href="{{ path('task_new', { type: 'basic' }) }}">
-                Basic Task
+<div class="card">
+    <h2>Select Task Type</h2>
+    <p>Choose which type of task you want to create:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+        <div style="border: 2px solid #3498db; border-radius: 8px; padding: 30px; text-align: center;">
+            <h3 style="color: #3498db; margin-bottom: 15px;">📝 Task with Notes</h3>
+            <p style="color: #666; margin-bottom: 20px;">
+                Create a task with an additional notes field for detailed information.
+            </p>
+            <a href="{{ path('task_new_with_notes') }}" class="btn btn-primary">
+                Create Task with Notes
             </a>
-        </li>
-        <li>
-            <a href="{{ path('task_new', { type: 'notes' }) }}">
-                Task with Notes
+        </div>
+        
+        <div style="border: 2px solid #e74c3c; border-radius: 8px; padding: 30px; text-align: center;">
+            <h3 style="color: #e74c3c; margin-bottom: 15px;">⚡ Task with Priority</h3>
+            <p style="color: #666; margin-bottom: 20px;">
+                Create a task with a priority level (low, medium, high, critical).
+            </p>
+            <a href="{{ path('task_new_with_priority') }}" class="btn btn-danger">
+                Create Task with Priority
             </a>
-        </li>
-        <li>
-            <a href="{{ path('task_new', { type: 'priority' }) }}">
-                Task with Priority
-            </a>
-        </li>
-    </ul>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ path('task_index') }}" class="btn btn-secondary">
+            ← Back to Task List
+        </a>
+    </div>
+</div>
 {% endblock %}

@@ -2,15 +2,180 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-        {% endblock %}
+        <title>{% block title %}Task Manager{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>✅</text></svg>">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background-color: #f5f5f5;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            header {
+                background-color: #2c3e50;
+                color: white;
+                padding: 20px 0;
+                margin-bottom: 30px;
+            }
+            
+            header h1 {
+                text-align: center;
+                font-size: 2em;
+            }
+            
+            nav {
+                text-align: center;
+                margin-top: 15px;
+            }
+            
+            nav a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                margin: 0 5px;
+                background-color: #34495e;
+                border-radius: 5px;
+                display: inline-block;
+            }
+            
+            nav a:hover {
+                background-color: #4a5f7f;
+            }
+            
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+            
+            .alert-success {
+                background-color: #d4edda;
+                border: 1px solid #c3e6cb;
+                color: #155724;
+            }
+            
+            .alert-error {
+                background-color: #f8d7da;
+                border: 1px solid #f5c6cb;
+                color: #721c24;
+            }
+            
+            .btn {
+                display: inline-block;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background-color 0.3s;
+            }
+            
+            .btn-primary {
+                background-color: #3498db;
+                color: white;
+            }
+            
+            .btn-primary:hover {
+                background-color: #2980b9;
+            }
+            
+            .btn-success {
+                background-color: #27ae60;
+                color: white;
+            }
+            
+            .btn-success:hover {
+                background-color: #229954;
+            }
+            
+            .btn-danger {
+                background-color: #e74c3c;
+                color: white;
+            }
+            
+            .btn-danger:hover {
+                background-color: #c0392b;
+            }
+            
+            .btn-secondary {
+                background-color: #95a5a6;
+                color: white;
+            }
+            
+            .btn-secondary:hover {
+                background-color: #7f8c8d;
+            }
+            
+            .form-control {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+            
+            .form-group {
+                margin-bottom: 20px;
+            }
+            
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+            
+            .card {
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+        </style>
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            <div class="container">
+                <h1>{% block header_title %}Task Manager{% endblock %}</h1>
+                <nav>
+                    <a href="{{ path('task_index') }}">All Tasks</a>
+                    <a href="{{ path('task_new') }}">New Task</a>
+                </nav>
+            </div>
+        </header>
+        
+        <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-error">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            
+            {% block body %}{% endblock %}
+        </div>
+        
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

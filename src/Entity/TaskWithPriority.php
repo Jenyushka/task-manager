@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\TaskWithPriorityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: TaskWithPriorityRepository::class)]
+#[ORM\Entity]
 class TaskWithPriority extends Task
 {
     public const PRIORITY_LOW = 'low';
